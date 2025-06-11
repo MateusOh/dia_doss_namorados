@@ -13,7 +13,7 @@ function Inicio({ onAvancar }) {
   return (
     <div className="tela-inicio">
       <p className="mensagem-inicial">
-        Depois de 33 anos juntos...<br />
+        Feliz dia dos namorados<br />
         Nossos filhos me ajudaram a criar algo especial<br />
         para expressar todo meu amor por você.<br />
         Clique na cartinha.

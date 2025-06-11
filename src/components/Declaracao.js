@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from 'react';
 
 const mensagensRomanticas = [
-  "33 anos de amor, companheirismo e felicidade! ❤️",
-  "O amor é paciente, o amor é bondoso. E depois de 33 anos, nosso amor só cresceu. - 1 Coríntios 13:4",
+  "33 anos de amor, companheirismo, felicidade e Deus! ❤️",
   "Depois de todos esses anos, continuo me apaixonando por você todos os dias",
   "33 anos juntos e você continua sendo a razão do meu sorriso",
   "Você é a maior bênção que Deus colocou na minha vida",
