@@ -1,23 +1,25 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from 'react';
+import Inicio from './components/Inicio';
+import Declaracao from './components/Declaracao';
+import Galeria from './components/Galeria';
 
 function App() {
+  const [etapa, setEtapa] = useState('inicio');
+
+  const avancarEtapa = () => {
+    if (etapa === 'inicio') setEtapa('galeria');
+    else if (etapa === 'galeria') setEtapa('declaracao');
+  };
+
+  const voltarInicio = () => {
+    setEtapa('inicio');
+  };
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      {etapa === 'inicio' && <Inicio onAvancar={avancarEtapa} />}
+      {etapa === 'galeria' && <Galeria onAvancar={avancarEtapa} />}
+      {etapa === 'declaracao' && <Declaracao onVoltar={voltarInicio} />}
     </div>
   );
 }

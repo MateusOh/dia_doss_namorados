@@ -1,0 +1,591 @@
+/* Estilos gerais da aplicação */
+.app {
+  text-align: center;
+  font-family: 'Arial', sans-serif;
+  background: linear-gradient(135deg, #ffe6ea 0%, #ffb6c1 100%);
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Tela inicial com cartinha */
+.tela-inicio {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  min-height: 100vh;
+  gap: 80px;
+  padding: 60px 20px 20px 20px;
+}
+
+.cartinha {
+  width: 320px;
+  height: 210px;
+  position: relative;
+  cursor: pointer;
+  perspective: 1200px; /* aumenta perspectiva para efeito 3D mais real */
+  border-radius: 14px;
+  box-shadow:
+    inset 0 0 15px 3px rgba(255, 182, 216, 0.5), /* sombra interna suave rosa claro */
+    0 10px 25px rgba(255, 20, 147, 0.25); /* sombra externa rosa suave */
+  background: linear-gradient(135deg, #fff0f6 0%, #ffd6e8 100%);
+  transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+  user-select: none;
+  font-family: 'Arial', sans-serif;
+}
+
+.cartinha:hover {
+  transform: scale(1.07) rotateZ(1deg);
+  box-shadow:
+    inset 0 0 20px 4px rgba(255, 105, 180, 0.7),
+    0 15px 35px rgba(255, 20, 147, 0.4);
+}
+
+/* tampa da carta (flap) */
+.tampa {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 52%;
+  background: linear-gradient(45deg, #ff69b4, #e60073);
+  box-shadow:
+    inset 0 5px 8px rgba(255, 255, 255, 0.35),
+    0 5px 20px rgba(230, 0, 115, 0.5);
+  border-radius: 14px 14px 0 0;
+  transform-origin: top center;
+  transition: transform 1.2s cubic-bezier(0.25, 1, 0.5, 1);
+  z-index: 3;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  user-select: none;
+  color: white;
+  font-weight: 700;
+  font-size: 1.8em;
+  text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+}
+
+.cartinha.aberta .tampa {
+  transform: rotateX(180deg);
+}
+
+/* texto da tampa desaparece quando aberta */
+.texto-tampa {
+  transition: opacity 0.4s ease;
+}
+
+.cartinha.aberta .texto-tampa {
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* corpo da carta */
+.carta {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: white;
+  border-radius: 14px;
+  box-shadow:
+    0 8px 15px rgba(255, 20, 147, 0.2),
+    inset 0 0 15px rgba(255, 182, 216, 0.15);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 24px;
+  box-sizing: border-box;
+  user-select: none;
+  transform-style: preserve-3d;
+}
+
+/* conteúdo dentro da carta */
+.conteudo-carta {
+  opacity: 0;
+  transition: opacity 0.6s ease 0.6s;
+  transform-style: preserve-3d;
+  color: #e60073;
+  font-family: 'Georgia', serif;
+  font-size: 1.3em;
+  font-weight: 600;
+  line-height: 1.4;
+}
+
+.cartinha.aberta .conteudo-carta {
+  opacity: 1;
+}
+
+/* exemplo para span grande dentro do conteúdo */
+.conteudo-carta span {
+  font-size: 3em;
+  display: block;
+  margin-bottom: 12px;
+  color: #ff1493;
+  text-shadow: 1px 1px 3px rgba(255, 105, 180, 0.7);
+}
+
+/* Tela da galeria */
+.tela-galeria {
+  padding: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+  text-align: center;
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.tela-galeria h2 {
+  color: #ff1493;
+  margin-bottom: 30px;
+  font-size: 2em;
+  font-weight: bold;
+}
+
+.galeria {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 30px;
+  margin: 30px 0;
+}
+
+.foto-container {
+  position: relative;
+  width: 300px;
+  overflow: hidden;
+  border-radius: 10px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s ease;
+  cursor: pointer;
+  background-color: white;
+}
+
+.foto-container:hover {
+  transform: translateY(-5px) scale(1.03);
+  box-shadow: 0 10px 25px rgba(255, 20, 147, 0.4);
+}
+
+.foto {
+  width: 100%;
+  height: auto;
+  display: block;
+  object-fit: cover;
+  user-select: none;
+}
+
+.foto-info {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(255, 20, 147, 0.9);
+  color: white;
+  padding: 15px;
+  transform: translateY(100%);
+  transition: transform 0.3s ease;
+  font-weight: 600;
+  border-radius: 0 0 10px 10px;
+  pointer-events: none; /* desabilita interação direta */
+}
+
+.foto-container:hover .foto-info {
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+.foto-info h3 {
+  margin: 0;
+  font-size: 1.2em;
+  user-select: none;
+}
+
+/* Tela de declaração */
+.tela-mensagem {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  padding: 30px;
+  text-align: center;
+  position: relative;
+}
+
+.mensagem-container {
+  background: white;
+  padding: 40px;
+  border-radius: 20px;
+  box-shadow: 0 10px 25px rgba(255, 20, 147, 0.2);
+  max-width: 90%;
+  width: 600px;
+  position: relative;
+  z-index: 2;
+}
+
+.tela-mensagem h2 {
+  font-size: 2.2em;
+  color: #ff1493;
+  margin-bottom: 30px;
+  font-family: 'Arial', sans-serif;
+  font-weight: bold;
+}
+
+.mensagem-romantica {
+  font-size: 1.8em;
+  color: #ff69b4;
+  margin: 25px 0;
+  padding: 20px;
+  font-style: italic;
+  line-height: 1.4;
+  animation: pulsar 2s infinite;
+}
+
+.mensagem-final {
+  font-size: 1.4em;
+  color: #ff1493;
+  margin: 30px 0;
+  font-weight: bold;
+}
+
+/* Botão padrão rosa */
+button {
+  background-color: #ff69b4;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: transform 0.2s, background-color 0.2s;
+  margin-top: 20px;
+}
+
+button:hover {
+  background-color: #ff1493;
+  transform: scale(1.05);
+}
+
+/* Corações flutuantes na tela de declaração */
+.coracoes {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  z-index: 1;
+  overflow: hidden;
+}
+
+.coracao {
+  position: absolute;
+  bottom: -20px;
+  color: #ff69b4;
+  opacity: 0.8;
+  animation: flutuarCoracao 3s ease-in forwards;
+  will-change: transform, opacity;
+}
+
+@keyframes pulsar {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+  100% { transform: scale(1); }
+}
+
+@keyframes flutuarCoracao {
+  0% {
+    transform: translateY(0) translateX(0) scale(1);
+    opacity: 0.8;
+  }
+  50% {
+    transform: translateY(-50vh) translateX(var(--mover-x)) scale(1.2);
+    opacity: 0.6;
+  }
+  100% {
+    transform: translateY(-100vh) translateX(calc(var(--mover-x) * 2)) scale(0.8);
+    opacity: 0;
+  }
+}
+
+/* Galeria estilo Polaroid */
+.galeria-container {
+  width: 100%;
+  max-width: 1200px;
+  padding: 40px 20px;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.galeria-container h2 {
+  color: #ff1493;
+  font-size: 2.5em;
+  margin-bottom: 40px;
+  text-shadow: 2px 2px 4px rgba(255, 105, 180, 0.3);
+  position: relative;
+  z-index: 2;
+}
+
+.galeria {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 40px;
+  padding: 20px;
+  position: relative;
+  z-index: 2;
+}
+
+.polaroid {
+  background: white;
+  padding: 15px 15px 45px 15px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  border-radius: 3px;
+  cursor: pointer;
+  transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+  position: relative;
+  transform-style: preserve-3d;
+  width: 300px;
+}
+
+.polaroid-inner {
+  position: relative;
+  width: 100%;
+  height: 280px; /* Altura fixa mais adequada */
+  overflow: hidden;
+}
+
+.foto {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 2px;
+  transition: transform 0.3s ease;
+}
+
+.polaroid:hover {
+  transform: scale(1.05) rotate(0deg) !important;
+  box-shadow: 0 10px 25px rgba(255, 20, 147, 0.3);
+  z-index: 3;
+}
+
+.polaroid.ativo {
+  transform: scale(1.15) rotate(0deg) !important;
+  box-shadow: 0 15px 35px rgba(255, 20, 147, 0.4);
+  z-index: 4;
+}
+
+.polaroid:hover .foto {
+  transform: scale(1.05);
+}
+
+.polaroid-texto {
+  text-align: center;
+  position: relative;
+  transform-style: preserve-3d;
+}
+
+.legenda {
+  margin: 8px 0 5px;
+  font-size: 1.1em;
+  color: #ff1493;
+  font-family: 'Comic Sans MS', cursive;
+}
+
+.data {
+  font-size: 0.9em;
+  color: #666;
+  font-style: italic;
+  margin: 0;
+}
+
+.coracao-marca {
+  position: absolute;
+  bottom: -30px;
+  right: 10px;
+  font-size: 1.2em;
+  transform: rotate(-20deg);
+  opacity: 0.8;
+}
+
+/* Decoração com corações */
+.decoracao-coracao {
+  position: absolute;
+  font-size: 3em;
+  opacity: 0.2;
+  animation: flutuar 3s ease-in-out infinite;
+  z-index: 1;
+}
+
+.coracao-1 {
+  top: 10%;
+  left: 5%;
+  animation-delay: 0s;
+}
+
+.coracao-2 {
+  top: 40%;
+  right: 8%;
+  animation-delay: 1s;
+}
+
+.coracao-3 {
+  bottom: 15%;
+  left: 15%;
+  animation-delay: 2s;
+}
+
+@keyframes flutuar {
+  0%, 100% {
+    transform: translateY(0) rotate(-10deg);
+  }
+  50% {
+    transform: translateY(-20px) rotate(10deg);
+  }
+}
+
+/* Tela de Desculpas */
+.tela-desculpa {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #ffe6ea 0%, #ffb6c1 100%);
+  padding: 40px 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  line-height: 1.8;
+  position: relative;
+  overflow: hidden;
+}
+
+.tela-desculpa p {
+  background: rgba(255, 255, 255, 0.95);
+  padding: 30px;
+  margin: 20px auto;
+  border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(255, 105, 180, 0.2);
+  max-width: 800px;
+  font-size: 1.2em;
+  color: #333;
+  text-align: left;
+  position: relative;
+  z-index: 2;
+  white-space: pre-line;
+  line-height: 1.8;
+  transition: transform 0.3s ease;
+}
+
+.tela-desculpa p:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 35px rgba(255, 105, 180, 0.3);
+}
+
+.tela-desculpa p:last-child {
+  text-align: center;
+  font-weight: bold;
+  color: #ff1493;
+  font-size: 1.4em;
+  padding: 20px;
+}
+
+.tela-desculpa p:nth-last-child(2),
+.tela-desculpa p:nth-last-child(3) {
+  text-align: center;
+  color: #ff69b4;
+  font-style: italic;
+  font-size: 1.3em;
+}
+
+/* Decoração com corações flutuantes */
+.tela-desculpa::before,
+.tela-desculpa::after {
+  content: '💝';
+  position: fixed;
+  font-size: 2em;
+  animation: flutuar-decoracao 6s ease-in-out infinite;
+  opacity: 0.3;
+  z-index: 1;
+}
+
+.tela-desculpa::before {
+  left: 5%;
+  animation-delay: 0s;
+}
+
+.tela-desculpa::after {
+  right: 5%;
+  animation-delay: 3s;
+}
+
+@keyframes flutuar-decoracao {
+  0%, 100% {
+    transform: translateY(0) rotate(-10deg);
+  }
+  50% {
+    transform: translateY(-40px) rotate(10deg);
+  }
+}
+
+/* Destaque para frases importantes */
+.tela-desculpa p strong,
+.tela-desculpa p em {
+  color: #ff1493;
+  font-weight: bold;
+}
+
+/* Efeito de borda suave */e
+.tela-desculpa p::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border-radius: 20px;
+  border: 2px solid transparent;
+  background: linear-gradient(45deg, #ff69b4, #ff1493) border-box;
+  -webkit-mask: 
+    linear-gradient(#fff 0 0) padding-box, 
+    linear-gradient(#fff 0 0);
+  -webkit-mask-composite: destination-out;
+  mask-composite: exclude;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.tela-desculpa p:hover::before {
+  opacity: 1;
+}
+
+.mensagem-inicial {
+  font-size: 1.4em;
+  color: #ff1493;
+  text-align: center;
+  line-height: 1.6;
+  max-width: 600px;
+  padding: 20px 30px;
+  animation: aparecer 1s ease-out forwards;
+  font-family: 'Arial', sans-serif;
+  font-weight: 500;
+}
+
+@keyframes aparecer {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
